@@ -8,10 +8,6 @@ Created on Sat Aug  3 11:02:54 2024
 import pandas as pd
 import numpy as np
 import scipy.stats as stats
-import matplotlib.pyplot as plt
-import matplotlib.font_manager as fm
-path = "D:\\dir\\Python\\NotoSansJP-VariableFont_wght.ttf"
-fprop = fm.FontProperties(fname = path)
 
 def hist(text):
     histogram = {}
@@ -94,12 +90,11 @@ texts_ref = ["kojiki", \
 
 math_ref = ["kyushu", \
             "shinkan", \
+            "jugairoku", \
             "senyou"
             ]
 
 table_data = []
-
-
 levels = [0.75, 0.90, 0.95, 0.98, 1]
 
 for level in levels:
@@ -182,10 +177,20 @@ for level in levels:
     
 result_table = pd.DataFrame(table_data, columns = columns)
     
-    
-    
+result_pivot = result_table.pivot(index="Text",\
+                        columns="Level", \
+                        values = "Number of characters for the level")
+result_pivot = result_pivot.reset_index()
+to_merge = result_table[0:27][["Text", "Number of characters"]]
+result_pivot = pd.merge(result_pivot, to_merge, on ="Text")
     
 
+
+
+
+
+
+### TESTING
 # Example data
 test_results = []
 
@@ -236,29 +241,7 @@ for level in levels:
                   t_stat_mf, p_value_mf]
     
     test_results.append(test_array)
-    
-    print(level)
-    print(f"U statistic: {result_ixr.statistic}")
-    print(f"P-value: {result_ixr.pvalue}")
-    print("")
-    print(f"U statistic: {result_mxr.statistic}")
-    print(f"P-value: {result_mxr.pvalue}")
-    print("")
-    print("")
-    print(f"U statistic: {result_mrxi.statistic}")
-    print(f"P-value: {result_mrxi.pvalue}")
-    print("")
-
-    print("t.tests:")    
-    print("t-statistic:", t_stat)
-    print("p-value:", p_value)
-    print("")
-    print("t-statistic:", t_stat_m)
-    print("p-value:", p_value_m)
-    print("")
-    print("t-statistic:", t_stat_mf)
-    print("p-value:", p_value_mf)
-    
+   
     
     
 level = "total"
@@ -296,37 +279,16 @@ test_array = [level, \
               t_stat_mf, p_value_mf]
 
 test_results.append(test_array)    
-
-# Output the results
-print(level)
-print(f"U statistic: {result_ixr.statistic}")
-print(f"P-value: {result_ixr.pvalue}")
-print("")
-print(f"U statistic: {result_mxr.statistic}")
-print(f"P-value: {result_mxr.pvalue}")
-print("")
-print("")
-print(f"U statistic: {result_mrxi.statistic}")
-print(f"P-value: {result_mrxi.pvalue}")
-print("")
-print("t.tests:")    
-print("t-statistic:", t_stat)
-print("p-value:", p_value)
-print("")
-print("t-statistic:", t_stat_m)
-print("p-value:", p_value_m)
-print("")
-print("t-statistic:", t_stat_mf)
-print("p-value:", p_value_mf)
-    
+   
     
 columns = ["level", "stat_i", "p_i", \
            "stat_m", "p_m", "stat_mr", "p_mr", "t", "p", "tm", "pm", \
            "tmr", "pmr"]
+
 results_frame = pd.DataFrame(test_results, columns = columns)
     
     
-    
+
     
     
     
