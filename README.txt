@@ -4,3 +4,8 @@ Results of the testing are stored in variable results_frame, results of the char
 or approached directly through appropriate UI.
 
 Text files used for the analysis are stored in the folder text_data. Some are pre-cleaned, but the main cleaning is done through a filter in the script.
+
+Data sources:
+-http://www.wasan.jp/katujika/katujika.html
+-https://zh.wikisource.org/wiki/%E5%8F%A4%E4%BA%8B%E8%A8%98
+-https://ctext.org/
